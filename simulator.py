@@ -15,7 +15,7 @@ class simulator(object):
 
     def run(self, n_trial=10):
         self.start_time = time.time()
-                                          #产生车辆
+                                          #create vehicles
 
         while True:
             try:
