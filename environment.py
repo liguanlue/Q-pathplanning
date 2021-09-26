@@ -36,14 +36,14 @@ class Environment(object):
         self.vehicles = OrderedDict()
         for x in range (1,self.grid_size[0]+1):
             for y in range (1,self.grid_size[1]+1):
-                self.intersections[(x,y)] = TrafficLight()     #路口
+                self.intersections[(x,y)] = TrafficLight()     #intersection
         for d in range(self.destinations):
             for i in range(self.intersections):
                 for j in range (self.intersections):
                     if (abs(i[0]-j[0]) + abs(i[1]-j[1])) == 1:
                         self.Q_table[(d, i, j)] = 0
                     if j == d and (abs(a[0]-d[0]) + abs(a[1]-d[1])) == 1:
-                        self.Q_table[d, i, j] = self.dij/self.flowspeed      #初始化Q表
+                        self.Q_table[d, i, j] = self.dij/self.flowspeed      #Initialize the Q table
 
     def set_q(self, destinations):
         for d in destinations:
@@ -54,7 +54,7 @@ class Environment(object):
                     if b == d and (abs(a[0]-d[0]) + abs(a[1]-d[1])) == 1:
                         self.Q_table[d,a,b] = self.dij/self.flowspeed
 
-    def update_q_congestion(self, d, i, j, k, ct, etij):   #congestion 字典
+    def update_q_congestion(self, d, i, j, k, ct, etij):   #congestion
         self.Q_table[d, i, j] = self.Q_table[d, i, j] + self.alpha * (
                 ct-etij+self.Q_table[d, j, k]-self.Q_table[d,i,j])
 
